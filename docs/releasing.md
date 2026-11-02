@@ -1,6 +1,6 @@
 # Releasing
 
-1. Set the version in `ApplicationFactory` and add changelog notes. Keep Symfony development dependencies pinned; review dependency updates deliberately.
+1. Set the version in `ApplicationFactory` and the MCP server configuration and add changelog notes. Keep Symfony development dependencies pinned; review dependency updates deliberately.
 2. Run `composer check`, `composer audit --locked`, native PTY/MCP smoke checks and Docker validation.
 3. Scan staged files and the full public Git history for credentials. Review examples and any recordings for private infrastructure.
 4. Push the reviewed commit and wait for all hosted CI jobs to pass.

@@ -19,7 +19,8 @@ return static function (ContainerConfigurator $container): void {
     if (in_array('*', $origins, true)) throw new \LogicException('MCP_ALLOWED_ORIGINS must not contain a wildcard.');
     $container->extension('mcp', ['servers' => ['default' => [
         'name' => 'zone-harbor',
-        'instructions' => 'Manage existing OVH DNS zones. Preview mutations first. Refresh publishes ALL pending changes, including external edits. Never retry unknown writes automatically. OVH acceptance is not DNS propagation. Caller flags are not human approval.',
+        'version' => '0.1.0',
+        'instructions' => 'Inspect public domain health and TLS certificates without provider credentials. Manage existing OVH DNS zones. Preview mutations first. Refresh publishes ALL pending changes, including external edits. Never retry unknown writes automatically. OVH acceptance is not DNS propagation. Caller flags are not human approval.',
         'transports' => ['stdio' => true, 'http' => true],
         'http' => ['path' => '/mcp', 'allowed_hosts' => $hosts, 'allowed_origins' => $origins],
         'session' => ['store' => 'file', 'lock' => ['enabled' => true]],

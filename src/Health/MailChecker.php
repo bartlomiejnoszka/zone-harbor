@@ -107,6 +107,7 @@ final class MailChecker
             $child = $this->spf($argument, $included[0], $dns, $report, $visited, $lookups);
             if ($child === Status::FAIL) return Status::FAIL;
             if ($child === Status::UNKNOWN) $status = Status::UNKNOWN;
+            elseif ($child === Status::WARN && $status === Status::PASS) $status = Status::WARN;
         }
         return $status;
     }

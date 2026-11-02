@@ -170,6 +170,23 @@ final class HealthTest extends TestCase
         $dns = FakeResolver::healthy(); $dns->set('example.com', 'MX', ['0 ', '10 mail.example.com']);
         self::assertSame(Status::FAIL, $this->checks($this->checker($dns)->domain('example.com'))['mail.mx']->status);
     }
+    public function testZoneTxtDecoderPreservesWhitespaceQuotesAndNumericEscapes(): void
+    {
+        self::assertSame('v=spf1 -all', \OvhDns\Health\TxtValue::fromZoneText('"v=spf1 " "-all"'));
+        self::assertSame('a b', \OvhDns\Health\TxtValue::fromZoneText('"a\\032b"'));
+        self::assertSame('"quoted"', \OvhDns\Health\TxtValue::fromZoneText('"\\"quoted\\""'));
+        self::assertSame('"broken', \OvhDns\Health\TxtValue::fromZoneText('"broken'));
+    }
+
+    public function testProviderTxtChunksMatchPublishedTextWithoutFalseDrift(): void
+    {
+        $dns = FakeResolver::healthy(); $dns->set('example.com', 'TXT', ['v=spf1 -all']);
+        $provider = new MemoryProvider();
+        $provider->data['ref:txt'] = new \OvhDns\Provider\Record('ref:txt', 'example.com', 'TXT', '', '"v=spf1 " "-all"', null);
+        $report = $this->checker($dns, provider: static fn () => $provider)->domain('example.com');
+        self::assertSame(Status::PASS, $this->checks($report)['provider.comparison.example.com|TXT']->status);
+    }
+
     public function testInvalidHealthSettingsFailWithoutNetworkAccess(): void
     {
         foreach ([['warning' => .05, 'critical' => .1], ['domains' => ['example.com' => ['endpoints' => [['host' => 'mail.example.com', 'port' => 22]]]]]] as $args) {

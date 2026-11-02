@@ -24,17 +24,20 @@ final class StreamTlsProbe implements TlsProbe
             'verify_peer' => $verify, 'verify_peer_name' => $verify, 'capture_peer_cert' => true, 'allow_self_signed' => !$verify]]);
         $socket = @stream_socket_client('tcp://'.(str_contains($ip, ':') ? '['.$ip.']' : $ip).':'.$endpoint->port,
             $errno, $error, $timeout, STREAM_CLIENT_CONNECT, $context);
-        if ($socket === false) return null;
+        if ($socket === false) throw new \RuntimeException('TLS connection did not complete.');
         try {
             stream_set_timeout($socket, (int) $timeout, (int) (($timeout - (int) $timeout) * 1e6));
             if ($endpoint->startTls) {
-                if (!$this->smtpResponse($socket, '220', $budget)) return null;
+                if (!$this->smtpResponse($socket, '220', $budget)) throw new \RuntimeException('SMTP negotiation did not complete.');
                 fwrite($socket, "EHLO zone-harbor.invalid\r\n");
-                if (!$this->smtpResponse($socket, '250', $budget)) return null;
+                if (!$this->smtpResponse($socket, '250', $budget)) throw new \RuntimeException('SMTP negotiation did not complete.');
                 fwrite($socket, "STARTTLS\r\n");
-                if (!$this->smtpResponse($socket, '220', $budget)) return null;
+                if (!$this->smtpResponse($socket, '220', $budget)) throw new \RuntimeException('SMTP negotiation did not complete.');
             }
-            if (@stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) return null;
+            if (@stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
+                if (stream_get_meta_data($socket)['timed_out']) throw new \RuntimeException('TLS handshake timed out.');
+                return null;
+            }
             $cert = stream_context_get_params($socket)['options']['ssl']['peer_certificate'] ?? null;
             return $cert instanceof \OpenSSLCertificate && openssl_x509_export($cert, $pem) ? $pem : null;
         } finally { fclose($socket); }

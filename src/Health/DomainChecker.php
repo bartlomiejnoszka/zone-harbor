@@ -123,7 +123,7 @@ final class DomainChecker
             $groups = [];
             foreach ($records as $record) {
                 $owner = $record->owner === '' ? $domain : $record->owner.'.'.$domain;
-                $groups[$owner.'|'.$record->type][] = self::canonical($record->type, $record->rdata);
+                $groups[$owner.'|'.$record->type][] = self::canonical($record->type, $record->rdata, true);
             }
             foreach ($questions as [$name, $type]) {
                 $key = $name.'|'.$type; $answer = $baseline[$key] ?? null;
@@ -138,12 +138,9 @@ final class DomainChecker
         } catch (\Throwable) { $report->add(new Finding('provider.comparison', Status::UNKNOWN, 'Provider comparison unavailable; public findings remain valid.', source: 'provider', remediation: 'Check credentials, zone access and time budget.')); }
     }
 
-    private static function canonical(string $type, string $value): string
+    private static function canonical(string $type, string $value, bool $zoneText = false): string
     {
-        if ($type === 'TXT' && str_starts_with($value, '"')) {
-            try { $rr = \NetDNS2\RR::fromString('example.com. 60 IN TXT '.$value); if (!$rr instanceof \NetDNS2\RR\TXT) return $value; return implode('', array_map(static fn ($text): string => (string) $text, $rr->text)); }
-            catch (\Throwable) { return $value; }
-        }
+        if ($type === 'TXT' && $zoneText) return TxtValue::fromZoneText($value);
         if (in_array($type, ['MX', 'CNAME', 'NS'], true)) return strtolower(rtrim($value, '.'));
         if ($type === 'AAAA') { $binary = @inet_pton($value); if ($binary !== false) return bin2hex($binary); }
         return $value;

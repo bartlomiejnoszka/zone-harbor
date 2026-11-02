@@ -1,5 +1,7 @@
 # Docker and Traefik
 
+For interactive setup, public health mode and local Docker MCP, start with the credential-free `compose.cli.yaml` flow in [installation](installation.md). The configuration below is the existing HTTP deployment with explicit secret mounts. A remote HTTP deployment wizard is not included.
+
 ```bash
 cp .env.docker.example .env.docker.local
 bin/setup-docker-secrets

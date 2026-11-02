@@ -11,13 +11,13 @@ use OvhDns\Tui\Worker;
 require dirname(__DIR__).'/vendor/autoload.php';
 
 try {
-    Configuration::loadEnvironment(dirname(__DIR__));
-    Configuration::loadSecretFiles();
+    umask(0077);
+    Configuration::initialize(dirname(__DIR__));
     $request = json_decode(stream_get_contents(STDIN), true, flags: JSON_THROW_ON_ERROR);
     if (!is_array($request)) throw new InvalidArgumentException();
     $dns = DnsServiceFactory::create();
     // Same directory and lock resource as MCP, including existing operation history.
-    $result = (new Worker($dns, new WriteExecutor($dns, dirname(__DIR__).'/operations/mcp')))->handle($request);
+    $result = (new Worker($dns, new WriteExecutor($dns, Configuration::operationDirectory())))->handle($request);
 } catch (Throwable) {
     $result = ['status' => 'failed', 'error' => 'Cannot initialize the DNS worker. Check local configuration.'];
 }

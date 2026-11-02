@@ -7,6 +7,8 @@ php bin/console certificate:check mail.example.com --port=587 --json
 php bin/console dns:tui example.com --health
 ```
 
+New user configuration stores health settings under `health:`; select it using `--config` or create it with `zone-harbor setup`. The legacy `zone-harbor.local.yaml` format remains available when no external profile is selected; its template is `examples/config/legacy-health.yaml`.
+
 These operations never change DNS, authenticate to a mailbox, or send messages. With no provider credentials, they use public DNS/TLS only. When OVH credentials are configured, an optional comparison distinguishes account configuration from published authoritative answers. A provider failure leaves public findings available.
 
 ## Findings
@@ -28,7 +30,7 @@ Published keys and policies do not prove signing is enabled or a delivered messa
 
 ## Certificates and limits
 
-Resolving apex/www HTTPS endpoints are checked automatically. Mail probes must be configured in `zone-harbor.local.yaml`: IMAP TLS 993, SMTP TLS 465, SMTP STARTTLS 587. Standalone certificate checks also support HTTPS 443.
+Resolving apex/www HTTPS endpoints are checked automatically. Mail probes must be configured under `health.domains.<domain>.endpoints` in a user configuration (or `domains.<domain>.endpoints` in the legacy file): IMAP TLS 993, SMTP TLS 465, SMTP STARTTLS 587. Standalone certificate checks also support HTTPS 443.
 
 The inspector pins a validated public IP, retains the hostname as SNI, verifies the chain/name using the platform trust store and inspects validity dates. A separate inspection handshake can retain expiry evidence after verification fails. No application credentials are sent. One address is probed per endpoint; additional addresses produce a coverage warning.
 

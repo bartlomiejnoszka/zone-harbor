@@ -29,6 +29,7 @@ jobs:
       - run: composer check
       - run: composer audit --locked
       - run: python3 scripts/tui-smoke.py
+      - run: python3 scripts/onboarding-smoke.py
       - run: php scripts/mcp-smoke.php
   docker:
     runs-on: ubuntu-latest
@@ -38,6 +39,33 @@ jobs:
       - run: docker run --rm --network=none zone-harbor:test composer check
       - run: docker build --target runtime -t zone-harbor:local .
       - run: docker run --rm --read-only --tmpfs /tmp zone-harbor:local php bin/console record:add example.com --type=TXT --name=_demo --target='"demo"' --dry-run
+      - name: Verify credential-free Docker onboarding
+        run: |
+          export ZONE_HARBOR_CONFIG_VOLUME=zone-harbor-ci-config
+          docker compose -f compose.cli.yaml run --rm -T cli setup --mode=health --skip-checks -n
+          docker compose -f compose.cli.yaml run --rm -T cli doctor --online --json
+          docker compose -f compose.cli.yaml run --rm -T cli mcp:config --client=cursor
+          docker volume rm zone-harbor-ci-config
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: shivammathur/setup-php@d52fc211a0436f8839a587b3b5b8efddab4744ea # v2
+        with:
+          php-version: '8.4'
+          extensions: intl, mbstring, openssl, pcntl
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: php scripts/build-release.php
+      - run: php scripts/release-smoke.php
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: zone-harbor-php-bundle
+          path: |
+            dist/*.tar.gz
+            dist/*.sha256
+          if-no-files-found: error
   secrets:
     runs-on: ubuntu-latest
     steps:

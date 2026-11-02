@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bartlomiejnoszka/zone-harbor/raw/main/schema/zone-harbor.schema.json",
+  "title": "ZoneHarbor user configuration",
+  "type": "object",
+  "required": ["version", "mode"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"const": 1},
+    "mode": {"enum": ["health", "ovh"]},
+    "default_domain": {"type": ["string", "null"], "minLength": 1},
+    "ovh": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "endpoint": {"enum": ["ovh-eu", "ovh-ca", "ovh-us"]},
+        "credentials_file": {"type": "string", "minLength": 1}
+      }
+    },
+    "storage": {
+      "type": "object", "additionalProperties": false,
+      "properties": {"directory": {"type": "string", "minLength": 1}}
+    },
+    "health": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "certificate": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "warning_remaining": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+            "critical_remaining": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1}
+          }
+        },
+        "domains": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object", "additionalProperties": false,
+            "properties": {
+              "mail": {"enum": ["google", "external", "none"]},
+              "dkim_selectors": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{1,63}$"}},
+              "endpoints": {"type": "array", "items": {
+                "type": "object", "required": ["host", "port"], "additionalProperties": false,
+                "properties": {"host": {"type": "string", "minLength": 1}, "port": {"enum": [443, 465, 587, 993]}}
+              }}
+            }
+          }
+        }
+      }
+    }
+  }
+}

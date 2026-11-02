@@ -6,5 +6,5 @@ use OvhDns\Configuration;
 
 require __DIR__.'/vendor/autoload.php';
 
-Configuration::loadEnvironment(__DIR__);
-Configuration::loadSecretFiles();
+umask(0077);
+Configuration::initialize(__DIR__);

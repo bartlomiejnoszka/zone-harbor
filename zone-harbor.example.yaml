@@ -1,13 +1,12 @@
-# Copy to the ignored zone-harbor.local.yaml. Mail endpoints are never guessed.
-certificate:
-  warning_remaining: 0.25
-  critical_remaining: 0.10
+# yaml-language-server: $schema=./schema/zone-harbor.schema.json
+# User settings: select with --config or ZONE_HARBOR_CONFIG. Run setup to create private credentials.
+version: 1
+mode: health
 
-domains:
-  example.com:
-    mail: google # google, external or none; omit to infer from public MX
-    dkim_selectors: [google]
-    endpoints:
-      - {host: mail.example.com, port: 993}
-      - {host: mail.example.com, port: 465}
-      - {host: mail.example.com, port: 587} # SMTP STARTTLS; no login or messages
+default_domain: example.com
+health:
+  certificate:
+    warning_remaining: 0.25
+    critical_remaining: 0.10
+# OVH management example: examples/config/ovh.yaml
+# Optional storage.directory is relative to this configuration; the default is ./state.

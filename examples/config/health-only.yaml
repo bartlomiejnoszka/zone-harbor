@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=../../schema/zone-harbor.schema.json
+version: 1
+mode: health
+default_domain: example.com

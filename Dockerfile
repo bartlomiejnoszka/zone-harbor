@@ -24,12 +24,14 @@ FROM base AS runtime
 COPY --from=dependencies /app/vendor /app/vendor
 COPY src/ ./src/
 COPY config/ ./config/
+COPY schema/ ./schema/
 COPY bin/ ./bin/
 COPY public/ ./public/
 COPY bootstrap.php composer.json composer.lock ./
 COPY docker/Caddyfile /etc/frankenphp/Caddyfile
-RUN mkdir -p var/cache var/log var/caddy/config var/caddy/data operations/mcp \
-    && chown -R app:app var operations \
+RUN mkdir -p var/cache var/log var/caddy/config var/caddy/data operations/mcp /app/user-config \
+    && chown -R app:app var operations /app/user-config \
+    && chmod 0700 /app/user-config \
     && setcap -r /usr/local/bin/frankenphp
 USER app
 EXPOSE 8080

@@ -1,0 +1,26 @@
+# Credential-free onboarding; OVH settings can be added interactively inside the private volume.
+name: zone-harbor-onboarding
+services:
+  cli:
+    image: ${ZONE_HARBOR_IMAGE:-zone-harbor:local}
+    build:
+      context: .
+      target: runtime
+    entrypoint: ['php', '/app/bin/zone-harbor']
+    command: ['list']
+    environment:
+      ZONE_HARBOR_CONFIG: /app/user-config/config.yaml
+      ZONE_HARBOR_DOCKER_IMAGE: ${ZONE_HARBOR_IMAGE:-zone-harbor:local}
+      ZONE_HARBOR_DOCKER_VOLUME: ${ZONE_HARBOR_CONFIG_VOLUME:-zone-harbor_config}
+    volumes:
+      - user_config:/app/user-config
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    tmpfs: ['/tmp:mode=1777,noexec,nosuid,size=64m']
+    stdin_open: true
+    tty: false
+    healthcheck: {disable: true}
+volumes:
+  user_config:
+    name: ${ZONE_HARBOR_CONFIG_VOLUME:-zone-harbor_config}

@@ -11,3 +11,5 @@ var
 *.zone
 
 zone-harbor.local.yaml
+
+dist

@@ -4,6 +4,7 @@
 composer check
 composer audit --locked
 python3 scripts/tui-smoke.py
+python3 scripts/onboarding-smoke.py
 php scripts/mcp-smoke.php
 ```
 
@@ -28,3 +29,5 @@ agg operations/tui-demo.cast docs/assets/tui-demo.gif
 ```
 
 Review the recording for private values before publishing. Never record real credentials or operational domains for the public repository.
+
+Onboarding tests run the launcher from another directory, exercise hidden-input setup in a real PTY, preserve unrelated MCP client settings, reject stale writes and validate every configuration example. They use isolated temporary configuration and synthetic credentials. `scripts/release-smoke.php` verifies the dependency-complete bundle after extraction, including local MCP and shortcut installation. CI uploads the verified PHP bundle and checksum as an artifact.

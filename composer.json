@@ -9,7 +9,9 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
+        "composer-runtime-api": "^2.2",
         "mikepultz/netdns2": "^2.0",
+        "opis/json-schema": "^2.6",
         "ovh/ovh": "^3.5",
         "symfony/cache": "8.2.*@dev",
         "symfony/cache-contracts": "^3.8@dev",
@@ -75,5 +77,8 @@
         "sort-packages": true,
         "allow-plugins": {}
     },
-    "prefer-stable": true
+    "prefer-stable": true,
+    "bin": [
+        "bin/zone-harbor"
+    ]
 }

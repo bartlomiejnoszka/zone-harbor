@@ -9,3 +9,5 @@
 /.env.docker.local
 
 zone-harbor.local.yaml
+
+/dist/

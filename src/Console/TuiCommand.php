@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OvhDns\Console;
 
 use OvhDns\Dns\DnsInput;
+use OvhDns\Configuration;
 use OvhDns\Tui\Application;
 use OvhDns\Tui\ProcessGateway;
 use Symfony\Component\Console\Command\Command;
@@ -24,7 +25,7 @@ final class TuiCommand extends Command implements SignalableCommandInterface
 
     protected function configure(): void
     {
-        $this->setName('dns:tui')->setDescription('Open the full-screen DNS manager (English).')
+        $this->setName('dns:tui')->setAliases(['tui'])->setDescription('Open the full-screen DNS manager (English).')
             ->addArgument('zone', InputArgument::OPTIONAL, 'Open an ASCII/punycode DNS zone or health target.')
             ->addOption('health', null, InputOption::VALUE_NONE, 'Open read-only health mode without OVH credentials.');
     }
@@ -35,7 +36,7 @@ final class TuiCommand extends Command implements SignalableCommandInterface
             $output->writeln('The DNS manager requires an interactive terminal. Use record:list for piped output.');
             return Command::INVALID;
         }
-        $zone = $input->getArgument('zone');
+        $zone = $input->getArgument('zone') ?? Configuration::user()?->data['default_domain'] ?? null;
         try { if ($zone !== null) $zone = DnsInput::zone($zone); }
         catch (\InvalidArgumentException) { $output->writeln('Invalid zone. Use an ASCII/punycode domain name.'); return Command::INVALID; }
         $tui = new Tui(new StyleSheet([':root' => new Style(verticalAlign: VerticalAlign::Top)]));
@@ -43,7 +44,7 @@ final class TuiCommand extends Command implements SignalableCommandInterface
         fwrite(STDOUT, "\x1b[?1049h\x1b[H");
         $exitCode = Command::SUCCESS;
         try {
-            $this->ui->run($zone, $input->getOption('health'));
+            $this->ui->run($zone, $input->getOption('health') || Configuration::user()?->mode() === 'health');
         } catch (\Throwable) {
             // Restore first, then report a safe English error outside the TUI.
             $tui->stop();

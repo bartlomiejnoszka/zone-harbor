@@ -17,5 +17,4 @@ services:
     OvhDns\Dns\DnsService:
         factory: ['OvhDns\Infrastructure\DnsServiceFactory', create]
     OvhDns\Operation\WriteExecutor:
-        arguments:
-            $directory: '%kernel.project_dir%/operations/mcp'
+        factory: ['OvhDns\Infrastructure\WriteExecutorFactory', create]

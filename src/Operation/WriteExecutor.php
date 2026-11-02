@@ -13,21 +13,23 @@ use Symfony\Component\Lock\Store\FlockStore;
 /** Coordinates a complete DNS write: lock, backup, mutation, optional publication. */
 final class WriteExecutor
 {
-    public function __construct(private readonly DnsService $dns, private readonly string $directory) {}
+    public function __construct(private readonly DnsService $dns, private readonly string|\Closure $directory) {}
 
     public function run(string $operation, string $zone, ?string $id = null, array $fields = [], bool $refresh = true, bool $dryRun = true, bool $confirmDelete = false, ?array $expectedRecord = null): array
     {
+        $directory = $this->directory instanceof \Closure ? ($this->directory)() : $this->directory;
         $zone = DnsInput::zone($zone);
+        if (!$dryRun && !\OvhDns\Configuration::providerEnabled()) throw new WritePreparationException('DNS writes are disabled in public health mode. Run setup to enable management.');
         if (!$dryRun && $operation === 'record:delete' && !$confirmDelete) {
             throw new \InvalidArgumentException('Deletion requires confirmDelete=true. Preview the exact record first.');
         }
         if ($dryRun) {
             return $this->dns->plan($operation, $zone, $id, $fields, $refresh) + ['status' => 'preview', 'dryRun' => true];
         }
-        if (!is_dir($this->directory) && !@mkdir($this->directory, 0700, true) && !is_dir($this->directory)) {
+        if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
             throw new WritePreparationException('Cannot create backup directory; no DNS write attempted.');
         }
-        $lock = (new LockFactory(new FlockStore($this->directory)))->createLock($this->dns->provider()->key().':'.$zone);
+        $lock = (new LockFactory(new FlockStore($directory)))->createLock($this->dns->provider()->key().':'.$zone);
         if (!$lock->acquire()) {
             throw new WritePreparationException('Another write to this zone is running. No DNS write attempted.');
         }
@@ -39,7 +41,7 @@ final class WriteExecutor
                     throw new WritePreparationException('The record changed since preview. Reload and preview again; no DNS write attempted.');
                 }
             }
-            $backup = $this->directory.'/'.gmdate('Ymd\THis\Z').'-'.$zone.'-'.bin2hex(random_bytes(8));
+            $backup = $directory.'/'.gmdate('Ymd\THis\Z').'-'.$zone.'-'.bin2hex(random_bytes(8));
             if (!@mkdir($backup, 0700)) throw new WritePreparationException('Cannot create backup; no DNS write attempted.');
             if ($this->dns->provider()->capabilities()->nativeExport) {
                 $native = $this->dns->exportZone($zone);

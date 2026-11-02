@@ -1,11 +1,15 @@
 # Terminal interface
 
 ```bash
+zone-harbor
+zone-harbor tui
 php bin/console dns:tui
 php bin/console dns:tui example.com
 php bin/console dns:tui example.com --health
 php bin/console dns:tui --health
 ```
+
+The launcher opens the TUI at `default_domain` from user settings. Public-health mode automatically uses the read-only Health view. Run `zone-harbor setup` to change the preferred domain or account.
 
 Use an interactive terminal at least 80×24. Health mode needs no OVH credentials and accepts a domain argument or prompts for one. It remains read-only.
 

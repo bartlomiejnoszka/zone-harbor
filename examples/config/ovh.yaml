@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../schema/zone-harbor.schema.json
+version: 1
+mode: ovh
+default_domain: example.com
+ovh:
+  endpoint: ovh-eu
+  credentials_file: credentials.env
+health:
+  domains:
+    example.com:
+      mail: google
+      dkim_selectors: [google]
+      endpoints:
+        - {host: mail.example.com, port: 993}
+        - {host: mail.example.com, port: 587}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b373adf5f06e2e0e0f2529244c5b8ecc",
+    "content-hash": "ed766677e80593ad312ccf1f4d0e946a",
     "packages": [
         {
             "name": "doctrine/deprecations",
@@ -7480,7 +7480,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "composer-runtime-api": "^2.2"
     },
     "platform-dev": {},
     "platform-overrides": {

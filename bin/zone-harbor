@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+ini_set('display_errors', 'stderr');
+if (PHP_VERSION_ID < 80401) { fwrite(STDERR, "ZoneHarbor requires PHP 8.4.1 or newer. Use the Docker runtime if PHP is unavailable.\n"); exit(1); }
+$autoload = $_composer_autoload_path ?? dirname(__DIR__).'/vendor/autoload.php';
+if (!is_file($autoload)) {
+    fwrite(STDERR, "Dependencies are missing. Run composer install in the ZoneHarbor directory.\n");
+    exit(1);
+}
+require $autoload;
+try { exit(\OvhDns\Console\Launcher::run($argv)); }
+catch (Throwable) { fwrite(STDERR, "ZoneHarbor could not start. Check configuration and run doctor; details were hidden.\n"); exit(1); }

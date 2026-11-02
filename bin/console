@@ -3,17 +3,6 @@
 
 declare(strict_types=1);
 
-use OvhDns\Configuration;
-use OvhDns\Console\ApplicationFactory;
-
 require dirname(__DIR__).'/vendor/autoload.php';
-
-try {
-    Configuration::loadEnvironment(dirname(__DIR__));
-    Configuration::loadSecretFiles();
-} catch (Throwable) {
-    fwrite(STDERR, "Cannot read .env.local. Check its syntax and file permissions.\n");
-    exit(1);
-}
-
-exit(ApplicationFactory::create()->run());
+try { exit(\OvhDns\Console\Launcher::run($argv, tuiDefault: false)); }
+catch (Throwable) { fwrite(STDERR, "ZoneHarbor could not start. Check configuration and run doctor; details were hidden.\n"); exit(1); }

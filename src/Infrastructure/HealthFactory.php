@@ -14,9 +14,8 @@ final class HealthFactory
 {
     public static function create(): DomainChecker
     {
-        $clock = new SystemClock(); $config = HealthConfig::load(dirname(__DIR__, 2).'/zone-harbor.local.yaml');
-        $configured = true;
-        foreach (['OVH_APPLICATION_KEY', 'OVH_APPLICATION_SECRET', 'OVH_CONSUMER_KEY'] as $key) if (!(getenv($key) ?: ($_ENV[$key] ?? ''))) $configured = false;
+        $clock = new SystemClock(); $config = Configuration::user()?->health() ?? HealthConfig::load(dirname(__DIR__, 2).'/zone-harbor.local.yaml');
+        $configured = Configuration::hasCredentials();
         $provider = $configured ? static fn (Budget $budget): OvhProvider => new OvhProvider(static fn (): OvhDnsClient => new OvhDnsClient(
             Configuration::createApi(new Client(['timeout' => min(2, $budget->timeout(2)), 'connect_timeout' => 1])),
             static fn () => $budget->timeout(2))) : null;

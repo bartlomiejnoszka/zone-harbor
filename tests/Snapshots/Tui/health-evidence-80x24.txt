@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [h] Domain   [r] Rerun   [Enter] Evidence   [?] Help
+╭ HEALTH EVIDENCE ─────────────────────────────────────────────────────────────╮
+│ Read-only evidence                                                           │
+│ {                                                                            │
+│     "id": "dns.delegation",                                                  │
+│     "status": "PASS",                                                        │
+│     "summary": "Parent delegation matches authoritative DNS.",               │
+│     "source": "authoritative DNS",                                           │
+│     "evidence": {                                                            │
+│         "nameservers": [                                                     │
+│             "ns1.example.test",                                              │
+│             "ns2.example.test"                                               │
+│         ]                                                                    │
+│     },                                                                       │
+│     "remediation": ""                                                        │
+│ }                                                                            │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Health audit completed. No DNS writes.
+
+ [Enter] Evidence   [r] Rerun   [h] Domain   [↑/↓] Move   [Esc] Back   [q] Quit

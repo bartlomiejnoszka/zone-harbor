@@ -1,0 +1,16 @@
+security:
+    providers:
+        mcp_users:
+            memory:
+                users:
+                    mcp:
+                        roles: [ROLE_MCP]
+    firewalls:
+        mcp:
+            pattern: ^/mcp(?:/|$)
+            stateless: true
+            provider: mcp_users
+            access_token:
+                token_handler: OvhDns\Security\McpTokenHandler
+    access_control:
+        - { path: '^/mcp(?:/|$)', roles: ROLE_MCP }

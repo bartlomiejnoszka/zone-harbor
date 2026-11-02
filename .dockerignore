@@ -1,0 +1,13 @@
+.git
+.env
+.env.local
+.env.local.*
+.env.docker.local
+secrets
+operations
+vendor
+var
+.phpunit.cache
+*.zone
+
+zone-harbor.local.yaml

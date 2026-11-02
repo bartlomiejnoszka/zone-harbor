@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [h] Domain   [r] Rerun   [Enter] Evidence   [?] Help
+╭ HEALTH TARGET ───────────────────────────────────────────────────────────────╮
+│ Read-only domain health                                                      │
+│                                                                              │
+│ Enter the public domain to inspect. No OVH credentials are required.         │
+│ Mail endpoints and DKIM selectors come from zone-harbor.local.yaml.          │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Health audit completed. No DNS writes.
+
+ [Enter] Inspect public domain   [Esc] Back   [q / Ctrl+C] Quit
+Domain:

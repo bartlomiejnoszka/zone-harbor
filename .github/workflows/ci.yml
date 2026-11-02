@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, php: '8.4'}
+          - {os: ubuntu-latest, php: '8.5'}
+          - {os: macos-latest, php: '8.5'}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: shivammathur/setup-php@d52fc211a0436f8839a587b3b5b8efddab4744ea # v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, mbstring, openssl, pcntl
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer check
+      - run: composer audit --locked
+      - run: python3 scripts/tui-smoke.py
+      - run: php scripts/mcp-smoke.php
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: docker build --target test -t zone-harbor:test .
+      - run: docker run --rm --network=none zone-harbor:test composer check
+      - run: docker build --target runtime -t zone-harbor:local .
+      - run: docker run --rm --read-only --tmpfs /tmp zone-harbor:local php bin/console record:add example.com --type=TXT --name=_demo --target='"demo"' --dry-run
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Install pinned scanner
+        run: go install github.com/zricethezav/gitleaks/v8@v8.30.1
+      - name: Scan full public history
+        run: ~/go/bin/gitleaks git . --redact --no-banner --log-opts=--all

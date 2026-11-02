@@ -1,0 +1,19 @@
+ ZoneHarbor  ›  example.test                                                                       Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+            ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+            │ Add record                                                                                   │
+            │ Zone: example.test · @ = apex · TTL 0 = zone default                                         │
+            │ Type · ↑/↓ to choose, Tab to continue                                                        │
+            │ → TXT                                                                                        │
+            │   A                                                                                          │
+            │   AAAA                                                                                       │
+            │   (1/20)                                                                                     │
+            │ Name: @                                                                                      │
+            │ TTL (seconds): 3600                                                                          │
+            │ Target · TXT uses zone-file quotes; Shift+Enter inserts a newline                            │
+            │ ──────────────────────────────────────────────────────────────────────────────────────────── │
+            │                                                                                              │
+            │ ──────────────────────────────────────────────────────────────────────────────────────────── │
+            │ [Enter] Preview change   [Tab / Shift+Tab] Fields   [Esc] Cancel                             │
+            └──────────────────────────────────────────────────────────────────────────────────────────────┘
+ Ready · Complete the fields, then preview the change.

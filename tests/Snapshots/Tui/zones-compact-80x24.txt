@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+╭ Zones · 3 ───────────────────────────────────────────────────────────────────╮
+│ / Find zone                                                                  │
+│ • example.test                                                               │
+│   other.example.test                                                         │
+│   xn--prba-5qa.example                                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Loaded 7 records. Selection previews the value; Enter expands it.
+
+ [Enter] Open  [/] Find  [Tab] Records  [Ctrl+P] Menu  [?] Help

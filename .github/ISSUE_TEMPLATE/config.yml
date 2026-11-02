@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private vulnerability report
+    url: https://github.com/bartlomiejnoszka/zone-harbor/security/advisories/new
+    about: Report security issues privately, without exposing credentials in public issues.

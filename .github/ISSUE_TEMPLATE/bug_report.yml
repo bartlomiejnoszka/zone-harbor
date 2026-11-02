@@ -1,0 +1,17 @@
+name: Bug report
+description: Report reproducible behavior using synthetic data
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include expected behavior, reproduction commands and sanitized output. Never include credentials or private DNS records.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: ZoneHarbor version, PHP version, operating system and interface (CLI/TUI/MCP).
+    validations:
+      required: true

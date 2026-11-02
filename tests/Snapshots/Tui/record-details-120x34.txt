@@ -1,0 +1,34 @@
+ ZoneHarbor  ›  example.test                                                                       Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+          ╭ RECORD DETAILS ──────────────────────────────────────────────────────────────────────────────────╮
+          │ Zone: example.test                                                                               │
+          │ ID: 104                                                                                          │
+          │ Type: TXT                                                                                        │
+          │ Name: @                                                                                          │
+          │ TTL (seconds): 3600                                                                              │
+          │ Target: "v=spf1 include:_spf.google.com ~all"                                                    │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          │                                                                                                  │
+          ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+ Ready · Filter applied.
+
+ [Esc] Back   [↑/↓] Scroll   [?] Help   [q] Quit

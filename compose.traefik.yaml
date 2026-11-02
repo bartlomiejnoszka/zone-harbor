@@ -1,0 +1,22 @@
+# Requires an existing Traefik with the Docker provider, a TLS resolver and network.
+services:
+  http:
+    ports: !reset []
+    environment:
+      MCP_ALLOWED_HOSTS: ${MCP_HOST:?Set MCP_HOST in .env.docker.local}
+    networks:
+      - default
+      - traefik
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: ${TRAEFIK_NETWORK:-traefik}
+      traefik.http.routers.zone-harbor.rule: 'Host(`${MCP_HOST:?Set MCP_HOST}`) && Path(`/mcp`)'
+      traefik.http.routers.zone-harbor.entrypoints: ${TRAEFIK_ENTRYPOINT:-websecure}
+      traefik.http.routers.zone-harbor.tls: 'true'
+      traefik.http.routers.zone-harbor.tls.certresolver: ${TRAEFIK_CERT_RESOLVER:-letsencrypt}
+      traefik.http.services.zone-harbor.loadbalancer.server.port: '8080'
+
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik}

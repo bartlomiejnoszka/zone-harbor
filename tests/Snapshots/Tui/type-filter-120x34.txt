@@ -1,0 +1,34 @@
+ ZoneHarbor  ›  example.test                                                                       Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+╭ Zones · 3 ────────────╮ ╭ Records · 1/7 ─────────────────────────────────────────────────────────────────────────────╮
+│ / Find zone           │ │  All   A/AAAA  [MX]  TXT   Other   [←/→]                                                   │
+│ • example.test        │ │ TYPE   NAME                  TTL       VALUE                                               │
+│   other.example.test  │ │ MX     @                     Default   10 mail.example.test.                               │
+│   xn--prba-5qa.examp… │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+│                       │ ╭ Selected record ───────────────────────────────────────────────────────────────────────────╮
+│                       │ │ MX · @ · ID 103 · TTL Default                                                              │
+│                       │ │ 10 mail.example.test.                                                                      │
+│                       │ │ [Enter] Full record details                                                                │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+│                       │ │                                                                                            │
+╰───────────────────────╯ ╰────────────────────────────────────────────────────────────────────────────────────────────╯
+ Ready · Loaded 7 records. Selection previews the value; Enter expands it.
+
+ [Enter] Expand   [/] Find   [a] Add   [e] Edit   [v] Preview   [Ctrl+P] Actions   [?] Help

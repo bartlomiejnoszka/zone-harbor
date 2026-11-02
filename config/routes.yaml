@@ -1,0 +1,7 @@
+mcp:
+    resource: .
+    type: mcp
+health:
+    path: /healthz
+    controller: OvhDns\Http\HealthController
+    methods: [GET]

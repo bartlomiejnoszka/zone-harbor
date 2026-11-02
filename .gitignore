@@ -1,0 +1,11 @@
+/vendor/
+/.env.local
+/.env.local.*
+/.phpunit.cache/
+/*.zone
+/operations/
+/var/
+/secrets/
+/.env.docker.local
+
+zone-harbor.local.yaml

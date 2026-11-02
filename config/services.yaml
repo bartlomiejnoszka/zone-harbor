@@ -1,0 +1,21 @@
+parameters:
+    env(MCP_ALLOWED_HOSTS): 'localhost,127.0.0.1'
+    env(MCP_ALLOWED_ORIGINS): ''
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OvhDns\Mcp\DnsTools: ~
+    OvhDns\Mcp\HealthTools: ~
+    OvhDns\Health\DomainChecker:
+        factory: ['OvhDns\Infrastructure\HealthFactory', create]
+    OvhDns\Security\McpTokenHandler: ~
+    OvhDns\Http\HealthController:
+        tags: ['controller.service_arguments']
+    OvhDns\Dns\DnsService:
+        factory: ['OvhDns\Infrastructure\DnsServiceFactory', create]
+    OvhDns\Operation\WriteExecutor:
+        arguments:
+            $directory: '%kernel.project_dir%/operations/mcp'

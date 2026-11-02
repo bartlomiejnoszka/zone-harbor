@@ -1,0 +1,9 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ Command palette                                                              │
+│ Action: publish                                                              │
+│  [p] Publish ALL pending zone changes                                        │
+│ [↑/↓] Choose · [Enter] Open · [Esc] Cancel                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+ Ready · Loaded 7 records. Selection previews the value; Enter expands it.

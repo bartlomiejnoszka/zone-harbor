@@ -1,0 +1,16 @@
+ ZoneHarbor  ›  example.test                                                                       Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+            ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+            │ Command palette                                                                              │
+            │ Action:                                                                                      │
+            │  [h] Check domain health (read-only)                                                         │
+            │  [r] Reload records                                                                          │
+            │  [a] Add record                                                                              │
+            │  [e] Edit selected record                                                                    │
+            │  [d] Delete selected record                                                                  │
+            │  [p] Publish ALL pending zone changes                                                        │
+            │  [v] Toggle record preview                                                                   │
+            │  [?] Keyboard help                                                                           │
+            │ [↑/↓] Choose · [Enter] Open · [Esc] Cancel                                                   │
+            └──────────────────────────────────────────────────────────────────────────────────────────────┘
+ Ready · Loaded 7 records. Selection previews the value; Enter expands it.

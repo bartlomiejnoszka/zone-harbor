@@ -1,0 +1,15 @@
+ ZoneHarbor  ›  example.test                                                                       Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+            ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+            │ Edit record #104                                                                             │
+            │ Zone: example.test · @ = apex · TTL 0 = zone default                                         │
+            │ Type: TXT (fixed)                                                                            │
+            │ Name: @                                                                                      │
+            │ TTL (seconds): 3600                                                                          │
+            │ Target · TXT uses zone-file quotes; Shift+Enter inserts a newline                            │
+            │ ──────────────────────────────────────────────────────────────────────────────────────────── │
+            │ "v=spf1 include:_spf.google.com ~all"                                                        │
+            │ ──────────────────────────────────────────────────────────────────────────────────────────── │
+            │ [Enter] Preview change   [Tab / Shift+Tab] Fields   [Esc] Cancel                             │
+            └──────────────────────────────────────────────────────────────────────────────────────────────┘
+ Ready · Complete the fields, then preview the change.

@@ -1,0 +1,13 @@
+# Copy to the ignored zone-harbor.local.yaml. Mail endpoints are never guessed.
+certificate:
+  warning_remaining: 0.25
+  critical_remaining: 0.10
+
+domains:
+  example.com:
+    mail: google # google, external or none; omit to infer from public MX
+    dkim_selectors: [google]
+    endpoints:
+      - {host: mail.example.com, port: 993}
+      - {host: mail.example.com, port: 465}
+      - {host: mail.example.com, port: 587} # SMTP STARTTLS; no login or messages

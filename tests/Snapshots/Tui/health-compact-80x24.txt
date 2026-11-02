@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [h] Domain   [r] Rerun   [Enter] Evidence   [?] Help
+╭ DOMAIN HEALTH ───────────────────────────────────────────────────────────────╮
+│ Domain: example.test                                                         │
+│ Status: WARN                                                                 │
+│ Observed: 2026-01-01T12:00:00Z                                               │
+│                                                                              │
+│ > PASS  dns.delegation  Parent delegation matches authoritative DNS.         │
+│   WARN  mail.dmarc  DMARC monitors without enforcement.                      │
+│   SKIP  mail.dkim  No selector configured.                                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Health audit completed. No DNS writes.
+
+ [Enter] Evidence   [r] Rerun   [h] Domain   [↑/↓] Move   [Esc] Back   [q] Quit

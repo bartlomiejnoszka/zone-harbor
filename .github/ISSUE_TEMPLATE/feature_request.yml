@@ -1,0 +1,10 @@
+name: Feature request
+description: Describe the problem you want to solve
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Problem and proposed behavior
+      description: Explain the use case, expected behavior and any relevant provider differences. Use synthetic examples.
+    validations:
+      required: true

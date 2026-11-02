@@ -1,0 +1,3 @@
+ZoneHarbor
+Resize terminal to at least 80 columns × 24 rows.
+q / Ctrl+C: exit after any running write completes.

@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use OvhDns\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+
+ini_set('display_errors', 'stderr');
+try {
+    require dirname(__DIR__).'/bootstrap.php';
+    $application = new Application(new Kernel($_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? 'prod', false));
+    // Exceptions may contain credentials/paths; no Symfony console exception rendering.
+    $application->setCatchExceptions(false);
+    exit($application->run());
+} catch (Throwable) {
+    fwrite(STDERR, "MCP startup/execution failed. Check configuration; details hidden to protect secrets.\n");
+    exit(1);
+}

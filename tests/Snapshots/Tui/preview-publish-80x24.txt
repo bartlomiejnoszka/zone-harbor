@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+╭ CONFIRM CHANGE ──────────────────────────────────────────────────────────────╮
+│ PUBLISH ZONE                                                                 │
+│ Zone: example.test                                                           │
+│ Record ID: (new record)                                                      │
+│                                                                              │
+│                                                                              │
+│ Publishes ALL pending changes in this zone, including changes made           │
+│ elsewhere.                                                                   │
+│ A zone backup is saved before the write.                                     │
+│                                                                              │
+│ [y] Confirm & publish     [Esc] Cancel                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Preview only. No DNS changes have been made.
+
+ [y] Confirm & publish   [Esc] Cancel   [↑/↓] Scroll

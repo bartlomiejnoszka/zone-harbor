@@ -1,0 +1,24 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+╭ OPERATION RESULT ────────────────────────────────────────────────────────────╮
+│ saved_publication_unconfirmed                                                │
+│                                                                              │
+│ Saved, but publication is unconfirmed. Reload and publish the zone; do not   │
+│ repeat the record write.                                                     │
+│                                                                              │
+│ Zone: example.test                                                           │
+│ Record ID: 104                                                               │
+│ Backup: operations/mcp/example-operation                                     │
+│                                                                              │
+│                                                                              │
+│ [Esc] Return to records · [r] Reload before another change                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ Ready · Operation finished. Review the result before another change.
+
+ [Esc] Back   [↑/↓] Scroll   [?] Help   [q] Quit

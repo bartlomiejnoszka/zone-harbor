@@ -1,0 +1,65 @@
+name: zone-harbor
+
+x-app: &app
+  image: zone-harbor:local
+  build:
+    context: .
+    target: runtime
+  environment:
+    APP_ENV: prod
+    APP_DEBUG: '0'
+    OVH_ENDPOINT: ovh-eu
+    OVH_APPLICATION_KEY_FILE: /run/secrets/ovh_application_key
+    OVH_APPLICATION_SECRET_FILE: /run/secrets/ovh_application_secret
+    OVH_CONSUMER_KEY_FILE: /run/secrets/ovh_consumer_key
+    MCP_HTTP_TOKEN_FILE: /run/secrets/mcp_http_token
+    APP_SECRET_FILE: /run/secrets/app_secret
+    MCP_ALLOWED_HOSTS: ${MCP_ALLOWED_HOSTS:-localhost,127.0.0.1}
+    MCP_ALLOWED_ORIGINS: ${MCP_ALLOWED_ORIGINS:-}
+    TRUSTED_PROXIES: ${TRUSTED_PROXIES:-}
+  secrets:
+    - ovh_application_key
+    - ovh_application_secret
+    - ovh_consumer_key
+    - mcp_http_token
+    - app_secret
+  volumes:
+    - app_var:/app/var
+    - operations:/app/operations
+  security_opt:
+    - no-new-privileges:true
+  cap_drop: [ALL]
+  read_only: true
+  tmpfs:
+    - /tmp:mode=1777,noexec,nosuid,size=64m
+
+services:
+  http:
+    <<: *app
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${MCP_LOCAL_PORT:-8080}:8080'
+  stdio:
+    <<: *app
+    profiles: [stdio]
+    stdin_open: true
+    tty: false
+    command: ['php', 'bin/mcp', 'mcp:server', 'default']
+    healthcheck:
+      disable: true
+
+volumes:
+  app_var:
+  operations:
+
+secrets:
+  ovh_application_key:
+    file: ${MCP_SECRETS_DIR:-./secrets}/ovh_application_key
+  ovh_application_secret:
+    file: ${MCP_SECRETS_DIR:-./secrets}/ovh_application_secret
+  ovh_consumer_key:
+    file: ${MCP_SECRETS_DIR:-./secrets}/ovh_consumer_key
+  mcp_http_token:
+    file: ${MCP_SECRETS_DIR:-./secrets}/mcp_http_token
+  app_secret:
+    file: ${MCP_SECRETS_DIR:-./secrets}/app_secret

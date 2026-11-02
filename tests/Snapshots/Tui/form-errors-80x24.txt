@@ -1,0 +1,21 @@
+ ZoneHarbor  ›  example.test                               Updated 12:34:56
+ [1] Zones   [2] Records   [3] Actions   [h] Health   [?] Help
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ Add record                                                                   │
+│ Type · ↑/↓ to choose, Tab to continue                                        │
+│ → TXT                                                                        │
+│   A                                                                          │
+│   AAAA                                                                       │
+│   (1/20)                                                                     │
+│ Name: bad..name                                                              │
+│ ! Use a relative DNS name, @ or *. Use ASCII/punycode and no trailing dot.   │
+│ TTL (seconds): -1                                                            │
+│ ! TTL must be a whole number from 0 to 2147483647.                           │
+│ Target · TXT uses zone-file quotes; Shift+Enter inserts a newline            │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│                                                                              │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ ! Target cannot be empty.                                                    │
+│ [Enter] Preview change   [Tab / Shift+Tab] Fields   [Esc] Cancel             │
+└──────────────────────────────────────────────────────────────────────────────┘
+ Ready · Review the highlighted fields. No DNS request was made.

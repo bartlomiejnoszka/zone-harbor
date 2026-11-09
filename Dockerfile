@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG PHP_IMAGE=dunglas/frankenphp:1-php8.5-trixie@sha256:c8abcc7925f16b1431f139d0410abe8f48db3fd862bacb646b05a4413337106a
-FROM composer:2@sha256:2cf275428757e5435a667bfc0d038b14520ca02be2b1b70d44a05c8c19e2de48 AS composer
+FROM composer:2@sha256:8de2184c6de224f4689e8f80ed5f5edaf0030b6b8b7839a22a2bcb6722ac87d0 AS composer
 
 FROM ${PHP_IMAGE} AS base
 RUN install-php-extensions intl mbstring opcache pcntl \
